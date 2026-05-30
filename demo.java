@@ -4,33 +4,30 @@ public class demo {
 
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    int n = sc.nextInt();
-    int[] nums = new int[n];
+    String str = sc.nextLine().trim();
 
-    for(int i=0; i<n; i++){
-      nums[i] = sc.nextInt();
+    // LinkedHashSet<String> res = new LinkedHashSet<>();
+
+    // for (int i = 0; i < str.length(); i++) {
+    //   int j = i + 1;
+    //   String word = " ";
+
+    //   while (j < str.length()) {
+    //     if (str.charAt(j) == ' ') {
+    //       word = str.substring(i, j);
+    //       break;
+    //     }
+    //   }
+    //   res.add(word);
+    //   i = j + 1;
+    // }
+
+    String[] words = str.split("\\s+");
+
+
+    for(int i=words.length-1; i>=0; i--){
+      System.out.print(words[i] + " ");
     }
-
-    int shift=0;
-
-    for(int i=1; i<n; i++){
-      int key = nums[i];
-      int j = i-1;
-      
-      while (j>=0 && nums[j]>key) {
-        nums[j+1] = nums[j];
-        shift++;
-        j--;
-      }
-      nums[j+1] = key;
-    }
-
-    for(int x : nums){
-      System.out.print(x  + " ");
-    }
-    System.out.println();
-    System.out.println(shift);
-
     sc.close();
   }
 }
