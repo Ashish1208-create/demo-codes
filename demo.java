@@ -11,19 +11,29 @@ public class demo {
       nums[i] = sc.nextInt();
     }
 
-    int high = n - 1;
-    int low = 0;
-    int maxVisi = Integer.MIN_VALUE;
+    int swap = 0;
 
-    while (low< high) {
-      int visi = Math.min(nums[high], nums[low])* (high - low);
-      maxVisi = Math.max(maxVisi, visi);
-      if (nums[low] < nums[high]) {
-        low++;
-      }else high--;
+    for (int i = 0; i < n - 1; i++) {
+      int miniIndex = i;
+
+      for (int j = i + 1; j < n; j++) {
+        if (nums[j] < nums[miniIndex])
+          miniIndex = j;
+      }
+
+      if (miniIndex != i) {
+        int temp = nums[i];
+        nums[i] = nums[miniIndex];
+        nums[miniIndex] = temp;
+        swap++;
+      }
     }
 
-    System.out.println(maxVisi);
+    for (int x : nums) {
+      System.out.print(x + " ");
+    }
+    System.out.println();
+    System.out.println(swap);
     sc.close();
   }
 }
