@@ -5,27 +5,22 @@ public class demo {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
 
-    int n = sc.nextInt();
-    int[] weight = new int[n];
+    String jewels = sc.next();
+    String stone = sc.next();
 
-    for(int i=0; i<n; i++){
-      weight[i] = sc.nextInt();
+    HashSet<Character> hash = new HashSet<>();
+
+    for(int i=0; i<jewels.length(); i++){
+      hash.add(jewels.charAt(i));
     }
 
-    Arrays.sort(weight);
+    int count =0;
 
-    int low=0;
-    int high=n-1;
-
-    int maxSum = Integer.MIN_VALUE;
-    while (low<high) {
-      int sum = weight[low] + weight[high];
-      if(sum > maxSum) maxSum = sum;
-      low++;
-      high--;
+    for(int i=0; i<stone.length(); i++){
+      if(hash.contains(stone.charAt(i))) count++;
     }
-
-    System.out.println(maxSum);
+   
+      System.out.println(count);
     sc.close();
   }
 }
