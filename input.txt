@@ -1,6 +1,2 @@
-5
-alex
-asish
-aaron
-john
-elena
+4
+10 20 30 100
