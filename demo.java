@@ -5,22 +5,32 @@ public class demo {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
 
-    String jewels = sc.next();
-    String stone = sc.next();
+   int days = sc.nextInt();
+   int minDay = sc.nextInt();
+   int minHours = sc.nextInt();
 
-    HashSet<Character> hash = new HashSet<>();
+    int[] hours = new int[days];
 
-    for(int i=0; i<jewels.length(); i++){
-      hash.add(jewels.charAt(i));
+    for(int i=0; i<days; i++){
+      hours[i] = sc.nextInt();
     }
 
-    int count =0;
+    int maxSum = 0;
 
-    for(int i=0; i<stone.length(); i++){
-      if(hash.contains(stone.charAt(i))) count++;
+    for(int i=0; i<minDay; i++){
+      maxSum += hours[i];
     }
-   
-      System.out.println(count);
+    
+    int windowSum = maxSum;
+
+    for(int i=minDay; i<days; i++){
+      windowSum += hours[i] - hours[i-minDay]; 
+      maxSum = Math.max(maxSum, windowSum);
+    }
+
+    System.out.println(maxSum);
+    System.out.println(maxSum > minHours ? "YES" : "NO");
+
     sc.close();
   }
 }
