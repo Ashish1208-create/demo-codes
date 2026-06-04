@@ -11,10 +11,12 @@ public class demo {
       int temp = sc.nextInt();
       attLinkedList.add(temp);
     }
-    
+
+    int k = sc.nextInt();
+    attLinkedList.remove(n-k);
     System.out.println(attLinkedList);
 
-    Collections.reverse(attLinkedList);
+    // Collections.reverse(attLinkedList);
     for(int x : attLinkedList){
       System.out.print(x + " ");
     }
