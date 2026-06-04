@@ -5,22 +5,28 @@ public class demo {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     int n = sc.nextInt();
-    LinkedList<Integer> attLinkedList = new LinkedList<>();
-
-    for(int i=0; i<n; i++){
+    LinkedList<Integer> first = new LinkedList<>();
+    for (int i = 0; i < n; i++) {
       int temp = sc.nextInt();
-      attLinkedList.add(temp);
+      first.add(temp);
     }
+    int m = sc.nextInt();
+    LinkedList<Integer> second = new LinkedList<>();
+    for (int i = 0; i < m; i++) {
+      int temp = sc.nextInt();
+      second.add(temp);
+    } 
 
-    int k = sc.nextInt();
-    attLinkedList.remove(n-k);
-    System.out.println(attLinkedList);
+    HashSet<Integer> set = new HashSet<>(second);
 
-    // Collections.reverse(attLinkedList);
-    for(int x : attLinkedList){
-      System.out.print(x + " ");
+    for (int x : first) {
+      if (set.contains(x)) {
+        System.out.println(x);
+        return;
+      }
     }
-    sc.close();
+    System.out.println(-1);
+    return;
 
   }
 }
