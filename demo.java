@@ -2,7 +2,7 @@ import java.util.*;
 
 class Node {
     int data;
-    Node next;
+    Node prev, next;
 
     Node(int data) {
         this.data = data;
@@ -14,41 +14,47 @@ public class demo {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-
-        Node head = null;
-        Node tail = null;
-
-        for (int i = 0; i < n; i++) {
-            int x = sc.nextInt();
-            Node temp = new Node(x);
-
-            if (head == null) {
-                head = temp;
-                tail = temp;
-            } else {
-                tail.next = temp;
-                tail = temp;
-            }
-        }
-
-        tail.next = head; // make circular
-
         int k = sc.nextInt();
 
-        Node curr = head;
-        Node prev = tail;
+        Node head = null, tail = null;
 
-        while (curr != curr.next) {
+        for (int i = 0; i < n; i++) {
+            Node temp = new Node(sc.nextInt());
 
-            for (int i = 1; i < k; i++) {
-                prev = curr;
-                curr = curr.next;
+            if (head == null) {
+                head = tail = temp;
+            } else {
+                tail.next = temp;
+                temp.prev = tail;
+                tail = temp;
             }
-
-            prev.next = curr.next; // delete kth node
-            curr = curr.next;
         }
 
-        System.out.println(curr.data);
+        k %= n;
+
+        if (k > 0) {
+
+            Node newTail = head;
+
+            for (int i = 1; i < n - k; i++) {
+                newTail = newTail.next;
+            }
+
+            Node newHead = newTail.next;
+
+            newTail.next = null;
+            newHead.prev = null;
+
+            tail.next = head;
+            head.prev = tail;
+
+            head = newHead;
+        }
+
+        Node curr = head;
+        while (curr != null) {
+            System.out.print(curr.data + " ");
+            curr = curr.next;
+        }
     }
 }
