@@ -1,61 +1,44 @@
 import java.util.*;
 
 public class demo {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] nums = new int[n];
+    static ArrayList<String> ans = new ArrayList<>();
+    static int n;
 
-        for (int i = 0; i < n; i++) {
-            nums[i] = sc.nextInt();
-        }
-
-        mergeSort(nums, 0, n - 1);
-
-        for (int i = 0; i < n; i++) {
-            System.out.print(nums[i] + " ");
-        }
-    }
-
-    public static void mergeSort(int[] nums, int low, int high) {
-        if (low >= high)
+    static void dfs(int[][] a, int i, int j, String s) {
+        if (i < 0 || j < 0 || i >= n || j >= n || a[i][j] != 1)
             return;
 
-        int mid = (low + high) / 2;
+        if (i == n - 1 && j == n - 1) {
+            ans.add(s);
+            return;
+        }
 
-        mergeSort(nums, low, mid);
-        mergeSort(nums, mid + 1, high);
+        a[i][j] = 0; // visited
 
-        merge(nums, low, mid, high);
+        dfs(a, i + 1, j, s + "D");
+        dfs(a, i, j - 1, s + "L");
+        dfs(a, i, j + 1, s + "R");
+        dfs(a, i - 1, j, s + "U");
+
+        a[i][j] = 1; // backtrack
     }
 
-    public static void merge(int[] nums, int low, int mid, int high) {
-        LinkedList<Integer> temp = new LinkedList<>();
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
 
-        int left = low, right = mid + 1;
-        int k = 0;
+        int[][] a = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                a[i][j] = sc.nextInt();
 
-        while (left <= mid && right <= high) {
-            if (nums[left] > nums[right]) {
-                temp.add(nums[right]);
-                right++;
-            } else {
-                temp.add(nums[left]);
-                left++;
-            }
-        }
+        if (a[0][0] == 1)
+            dfs(a, 0, 0, "");
 
-        while (left <= mid) {
-            temp.add(nums[left]);
-            left++;
-        }
-        while (right <= high) {
-            temp.add(nums[right]);
-            right++;
-        }
-
-        for (int i = 0; i < temp.size(); i++) {
-            nums[low + i] = temp.get(i);
-        }
+        if (ans.isEmpty())
+            System.out.println(-1);
+        else
+            for (String s : ans)
+                System.out.println(s);
     }
 }
