@@ -1,44 +1,38 @@
 import java.util.*;
 
 public class demo {
-    static ArrayList<String> ans = new ArrayList<>();
-    static int n;
-
-    static void dfs(int[][] a, int i, int j, String s) {
-        if (i < 0 || j < 0 || i >= n || j >= n || a[i][j] != 1)
-            return;
-
-        if (i == n - 1 && j == n - 1) {
-            ans.add(s);
-            return;
-        }
-
-        a[i][j] = 0; // visited
-
-        dfs(a, i + 1, j, s + "D");
-        dfs(a, i, j - 1, s + "L");
-        dfs(a, i, j + 1, s + "R");
-        dfs(a, i - 1, j, s + "U");
-
-        a[i][j] = 1; // backtrack
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
 
-        int[][] a = new int[n][n];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                a[i][j] = sc.nextInt();
+        int n = sc.nextInt();
+        int[] nums = new int[n];
 
-        if (a[0][0] == 1)
-            dfs(a, 0, 0, "");
+        for(int i=0; i<n; i++){
+            nums[i] = sc.nextInt();
+        }
 
-        if (ans.isEmpty())
-            System.out.println(-1);
-        else
-            for (String s : ans)
-                System.out.println(s);
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int[] query = new int[2];
+            query[0] = sc.nextInt();
+            query[1] = sc.nextInt();
+
+            HashMap<Integer, Integer> temp = new HashMap<>();
+
+            if(query[0] < n && query[0] >= 0 && query[1] < n && query[1] >= 0){
+                for(int i=query[0]; i<=query[1]; i++){
+                    temp.put(nums[i], (temp.getOrDefault(nums[i], 0) + 1));
+                }
+            }
+
+            int sum =0;
+
+            for (Map.Entry<Integer, Integer> entry : temp.entrySet()) {
+                sum += entry.getValue()*entry.getValue();
+                // System.out.println(entry.getKey() + " " + entry.getValue());
+            }
+            System.out.println(sum);
+        }
     }
 }
