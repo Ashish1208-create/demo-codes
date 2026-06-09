@@ -7,7 +7,7 @@ public class demo {
         int n = sc.nextInt();
         int[] nums = new int[n];
 
-        for(int i=0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             nums[i] = sc.nextInt();
         }
 
@@ -18,21 +18,15 @@ public class demo {
             query[0] = sc.nextInt();
             query[1] = sc.nextInt();
 
-            HashMap<Integer, Integer> temp = new HashMap<>();
+            int max = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
 
-            if(query[0] < n && query[0] >= 0 && query[1] < n && query[1] >= 0){
-                for(int i=query[0]; i<=query[1]; i++){
-                    temp.put(nums[i], (temp.getOrDefault(nums[i], 0) + 1));
-                }
+            for (int i = query[0]; i <= query[1]; i++) {
+                max = Math.max(max, nums[i]);
+                min = Math.min(min, nums[i]);
             }
 
-            int sum =0;
-
-            for (Map.Entry<Integer, Integer> entry : temp.entrySet()) {
-                sum += entry.getValue()*entry.getValue();
-                // System.out.println(entry.getKey() + " " + entry.getValue());
-            }
-            System.out.println(sum);
+            System.out.println(max - min);
         }
     }
 }
