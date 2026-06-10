@@ -1,32 +1,34 @@
 import java.util.*;
 
-public class demo {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+public class demo{
+  public static void main(String[] args){
+    Scanner sc = new Scanner(System.in);
 
-        int n = sc.nextInt();
-        int[] nums = new int[n];
+    int n = sc.nextInt();
+    int w = sc.nextInt();
 
-        for (int i = 0; i < n; i++) {
-            nums[i] = sc.nextInt();
-        }
+    int[] weight = new int[n];
 
-        int t = sc.nextInt();
-
-        while (t-- > 0) {
-            int[] query = new int[2];
-            query[0] = sc.nextInt();
-            query[1] = sc.nextInt();
-
-            int max = Integer.MIN_VALUE;
-            int min = Integer.MAX_VALUE;
-
-            for (int i = query[0]; i <= query[1]; i++) {
-                max = Math.max(max, nums[i]);
-                min = Math.min(min, nums[i]);
-            }
-
-            System.out.println(max - min);
-        }
+    for(int i=0; i<n; i++){
+      weight[i] = sc.nextInt();
     }
+
+    int maxLength = 0;
+    int sum = 0;
+
+    int start = 0;
+
+    for(int i=0; i<n; i++){
+      sum += weight[i];
+
+      while(sum>w){
+        sum -= weight[start];
+        start++;
+      }
+
+      maxLength = Math.max(maxLength, (i - start + 1));
+    }
+
+    System.out.println(maxLength);
+  }
 }
