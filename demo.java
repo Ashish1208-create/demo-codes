@@ -3,40 +3,48 @@ import java.util.*;
 public class demo {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         int n = sc.nextInt();
+        int[] nums = new int[n];
         int m = sc.nextInt();
+        int k = sc.nextInt();
 
-        int[][] matix = new int[n][m];
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = sc.nextInt();
+        }
 
+        int high = maxNum(nums);
+        int low = minNum(nums);
+
+        while (low<high) {
+            int mid = (low+high)/2;
+
+            if(nums[mid] == )
+            
+        }
+        // System.out.println(maxNum(nums));
+        // System.out.println(minNum(nums));
+    }
+
+    public static int maxNum(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int n = nums.length;
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                matix[i][j] = sc.nextInt();
+            if (max < nums[i]) {
+                max = nums[i];
             }
         }
+        return max;
+    }
 
-        int target = sc.nextInt();
-        sc.close();
-
-        int low = 0, high = m * n - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            int row = mid / n;
-            int col = mid % n;
-
-            if (matix[row][col] == target) {
-                System.out.println("Found");
-                return;
-            } else if (matix[row][col] < target) {
-                low = mid + 1;
-            } else
-                high = mid - 1;
+    public static int minNum(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (min > nums[i]) {
+                min = nums[i];
+            }
         }
-
-        System.out.println("Not Found");
-        return;
-
-        
+        return min;
     }
 }
