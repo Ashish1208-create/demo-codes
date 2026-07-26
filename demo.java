@@ -1,110 +1,83 @@
 import java.util.*;
 
 
-class Node{
+class Node {
+    Node prev;
     int data;
     Node next;
 
-    Node(int data1, Node next1){
-        this.data = data1;
-        this.next = next1;
-    }
-
-    Node(int data1){
+    Node(int data1) {
+        this.prev = null;
         this.data = data1;
         this.next = null;
     }
+
+    Node(int data1, Node next1) {
+        this.prev = null;
+        this.data = data1;
+        this.next = next1;
+    }
+    Node(Node prev1, int data1) {
+        this.prev = prev1;
+        this.data = data1;
+        this.next = null;
+    }
+    Node(Node prev1, int data1, Node next1) {
+        this.prev = prev1;
+        this.data = data1;
+        this.next = next1;
+    }
 }
 
-class Linked{
-    public static Node convertToLL(int[] nums) {
+
+class doubleLinked{
+    static Node convertToDLL(int[] nums){
         Node head = new Node(nums[0]);
         Node mover = head;
-        for (int i = 1; i < nums.length; i++) {
+        mover.prev = null;
+
+        for(int i=1; i<nums.length; i++){
             Node temp = new Node(nums[i]);
             mover.next = temp;
+            temp.prev = mover;
             mover = temp;
         }
         return head;
     }
 
-    static Node deleteHead(Node head){
-        Node temp = head;
-        head = temp.next;
-        
-        return head;
-    }
+    //insertion at head
 
-    static Node deleteTail(Node head){
-        Node mover = head;
+    static Node insertHead(Node head, int val){
+        Node temp = new Node(val);
 
-        while(mover.next.next != null){
-            mover = mover.next;
-        }
-        mover.next = null;
-        // head = mover;
-        return head;
-    }
-
-    static Node deleteByPos(Node head, int n){
-        Node mover = head;
-
-        for(int i=0; i<n-1; i++){
-            mover = mover.next;
-        }
-        
-        if (mover == null || mover.next == null)
-        return head;
-
-        mover.next = mover.next.next;
-        return head;
-    }
-
-    static Node insertHead(Node head, int n) {
-        Node temp = new Node(n);
-
-        if (head == null) {
+        if(head == null){
             return temp;
         }
+
+        head.prev = temp;
         temp.next = head;
         head = temp;
         return head;
     }
 
-    static Node insertTail(Node head, int n){
-        Node temp = new Node(n);
-        if(head == null){
-            return temp;
+    //reversal of linked list
+
+    static Node reverse(Node head){
+
+        if(head == null || head.next == null) return head;
+        Node current = head;
+        Node last = null;
+        while (current != null) {
+            last = current.prev;
+            current.prev = current.next;
+            current.next = last;
+
+            current= current.prev;
         }
-
-        Node mover = head;
-        while(mover.next != null){
-            mover = mover.next;
-        }
-        mover.next = temp;
-        return head;
-    }
-
-    static Node insertByPos(Node head, int value, int pos){
-
-        Node temp = new Node(value);
-        if(head == null){
-            return temp;
-        }
-
-        Node mover = head;
-
-        for(int i=0; i<pos-1 && mover!=null; i++){
-            mover = mover.next;
-        }
-        temp.next = mover.next.next;
-        mover.next = temp;
-        // temp.next = mover.next.next;
-
+        head = last.prev;
         return head;
     }
 }
-
 public class demo {
   public static void main(String[] args) {
         // int[] nums = { 2, 4, 7, 8 };
@@ -115,67 +88,16 @@ public class demo {
         for(int i=0; i<n; i++){
             nums[i] = sc.nextInt();
         }
-        Node head = Linked.convertToLL(nums);
+        Node head = doubleLinked.convertToDLL(nums); 
         System.out.println(head.data);
-        Node temp = head;
+        // Node temp = doubleLinked.insertHead(head, 23);
+        Node temp = doubleLinked.reverse(head);
         int count=0;
 
         while(temp!=null){
             System.out.print(temp.data + " ");
             temp = temp.next;
             count++;
-        }
-        int count1 = 0;
-        System.out.println("\nAfter deletion of head");
-        Node temp1 = Linked.deleteHead(head);
-        while (temp1 != null) {
-            System.out.print(temp1.data + " ");
-            temp1 = temp1.next;
-            count1++;
-        }
-
-        System.out.println("\nAfter deletion by position at 2");
-        Node temp3 = Linked.deleteByPos(head, 2);
-        while (temp3 != null) {
-            System.out.print(temp3.data + " ");
-            temp3 = temp3.next;
-            // count2++;
-        }
-        
-        int count2 = 0;
-        System.out.println("\nAfter deletion of Tail");
-        Node temp2 = Linked.deleteTail(head);
-        while (temp2 != null) {
-            System.out.print(temp2.data + " ");
-            temp2 = temp2.next;
-            count2++;
-        }
-        
-        System.out.println("\nAfter insertion at head");
-        Node temp4 = Linked.insertHead(head, 47);
-        while (temp4 != null) {
-            System.out.print(temp4.data + " ");
-            temp4 = temp4.next;
-            count2++;
-        }
-        
-        System.out.println("\nAfter insertion at tail");
-        Node temp5 = Linked.insertTail(head, 67);
-        while (temp5 != null) {
-            System.out.print(temp5.data + " ");
-            temp5 = temp5.next;
-            count2++;
-        }
-        
-        System.out.println("\nAfter insertion at POS");
-        Node temp6 = Linked.insertByPos(head, 93, 2);
-        while (temp6 != null) {
-            System.out.print(temp6.data + " ");
-            temp6 = temp6.next;
-            count2++;
-        }
-        
-        System.out.println("\nLength of linked list: " + count);
-        System.out.println("Length of linked list after deletion: " + count1);
+        }  
     }
 }

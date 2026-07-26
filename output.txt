@@ -1,16 +1,2 @@
 2
-2 5 8 1 8 
-After deletion of head
-5 8 1 8 
-After deletion by position at 2
-2 5 1 8 
-After deletion of Tail
-2 5 1 
-After insertion at head
-47 2 5 1 
-After insertion at tail
-2 5 1 67 
-After insertion at POS
-2 5 93 67 
-Length of linked list: 5
-Length of linked list after deletion: 4
+8 1 8 5 2 
