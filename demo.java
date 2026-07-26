@@ -59,6 +59,50 @@ class Linked{
         mover.next = mover.next.next;
         return head;
     }
+
+    static Node insertHead(Node head, int n) {
+        Node temp = new Node(n);
+
+        if (head == null) {
+            return temp;
+        }
+        temp.next = head;
+        head = temp;
+        return head;
+    }
+
+    static Node insertTail(Node head, int n){
+        Node temp = new Node(n);
+        if(head == null){
+            return temp;
+        }
+
+        Node mover = head;
+        while(mover.next != null){
+            mover = mover.next;
+        }
+        mover.next = temp;
+        return head;
+    }
+
+    static Node insertByPos(Node head, int value, int pos){
+
+        Node temp = new Node(value);
+        if(head == null){
+            return temp;
+        }
+
+        Node mover = head;
+
+        for(int i=0; i<pos-1 && mover!=null; i++){
+            mover = mover.next;
+        }
+        temp.next = mover.next.next;
+        mover.next = temp;
+        // temp.next = mover.next.next;
+
+        return head;
+    }
 }
 
 public class demo {
@@ -107,6 +151,29 @@ public class demo {
             count2++;
         }
         
+        System.out.println("\nAfter insertion at head");
+        Node temp4 = Linked.insertHead(head, 47);
+        while (temp4 != null) {
+            System.out.print(temp4.data + " ");
+            temp4 = temp4.next;
+            count2++;
+        }
+        
+        System.out.println("\nAfter insertion at tail");
+        Node temp5 = Linked.insertTail(head, 67);
+        while (temp5 != null) {
+            System.out.print(temp5.data + " ");
+            temp5 = temp5.next;
+            count2++;
+        }
+        
+        System.out.println("\nAfter insertion at POS");
+        Node temp6 = Linked.insertByPos(head, 93, 2);
+        while (temp6 != null) {
+            System.out.print(temp6.data + " ");
+            temp6 = temp6.next;
+            count2++;
+        }
         
         System.out.println("\nLength of linked list: " + count);
         System.out.println("Length of linked list after deletion: " + count1);
